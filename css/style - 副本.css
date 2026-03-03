@@ -1,0 +1,85 @@
+/* 全局重置：清除浏览器默认的 body 和 html 边距 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 推荐加上这个，让宽高计算更符合直觉 */
+}
+
+/* 或者只针对 body 和 html 进行重置，更精准 */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* 导航栏-LOGO靠左，配色协调，垂直居中，适配不同屏幕 */
+nav {
+    background-color: #0069D9; /* 主色调统一 */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* LOGO和菜单垂直居中 */
+    padding: 0; /* 彻底清空导航栏内边距，让LOGO完全靠左 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 999;
+    height: 75px; /* 与LOGO高度统一，避免错位 */
+    width: 100%; /* 确保导航栏占满宽度 */
+}
+/* LOGO样式-完全靠左，保持原有比例，背景透明 */
+nav .logo {
+    margin-left: 0; /* LOGO容器无左侧外边距 */
+    padding-left: 0; /* LOGO容器无左侧内边距 */
+}
+nav .logo img {
+    width: 320px;
+    height: 160px;
+    padding: 0;
+    margin: 0;
+    background: transparent; /* 去除背景色 */
+    object-fit: contain;
+    border: none;
+    filter: drop-shadow(0 0 1px rgba(255,255,255,0.5)); /* 细微发光提升辨识度 */
+    display: block; /* 消除图片默认的行内间隙 */
+}
+/* 导航菜单样式 - 靠右排列，不影响LOGO */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* 菜单仅右侧留间距，不影响LOGO左侧 */
+
+/* 适配手机屏幕（宽度小于768px） */
+@media (max-width: 768px) {
+  /* 1. 导航栏适配 */
+  nav ul {
+    flex-direction: column; /* 导航栏垂直排列 */
+    padding: 10px;
+  }
+  nav ul li {
+    margin: 8px 0; /* 增加垂直间距 */
+  }
+
+  /* 2. 图片适配（防止图片超出屏幕） */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 3. 页面容器适配（让内容不贴边） */
+  .container {
+    padding: 0 15px;
+  }
+
+  /* 4. 标题文字适配（缩小字号） */
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+}
+
+}
