@@ -2,11 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <!-- 必须加！手机端适配的核心，没有它，style.css 的移动端样式不生效 -->
+    <!-- 手机端适配核心（必须保留） -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 确保引入了 style.css（路径要对） -->
     <link rel="stylesheet" href="css/style.css">
-    <title>关于我们</title>
+    <title>关于我们 - 靖江市金菊机械配件有限公司</title>
     <style>
         * {
             margin: 0;
@@ -14,26 +13,25 @@
             box-sizing: border-box;
             font-family: "Microsoft Yahei", sans-serif;
         }
-        /* 全局过渡 - 核心修复：禁用点击穿透 */
+        /* 全局过渡 - 修复点击穿透问题 */
         html {
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch; /* 移动端顺滑滚动 */
         }
         body {
             opacity: 0;
-            visibility: hidden; /* 关键：彻底隐藏直到加载完成，避免点击穿透 */
-            pointer-events: none; /* 关键：加载期间禁用所有点击 */
+            visibility: hidden;
+            pointer-events: none; /* 加载期间禁用所有点击 */
             animation: pageFadeIn 1s ease forwards;
-            -webkit-animation: pageFadeIn 1s ease forwards; /* 兼容webkit内核 */
+            -webkit-animation: pageFadeIn 1s ease forwards;
         }
         @keyframes pageFadeIn {
             to {
                 opacity: 1;
                 visibility: visible;
-                pointer-events: auto; /* 动画完成后恢复点击 */
+                pointer-events: auto;
             }
         }
-        /* 兼容webkit内核 */
         @-webkit-keyframes pageFadeIn {
             to {
                 opacity: 1;
@@ -42,7 +40,7 @@
             }
         }
 
-        /* 导航样式 - 完全同步index的布局逻辑：LOGO在上，菜单在下横向排列 */
+        /* 导航样式 - 与index完全同步 */
         .navbar {
             background: #ffffff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -50,9 +48,9 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 9999; /* 提升层级，避免被其他元素遮挡 */
+            z-index: 9999;
             transition: all 0.3s ease;
-            width: 100%; /* 确保导航栏占满宽度 */
+            width: 100%;
         }
         .navbar.scrolled {
             padding: 5px 0;
@@ -63,10 +61,9 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            flex-direction: column; /* 核心：LOGO和菜单垂直排列（LOGO在上，菜单在下） */
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            gap: 10px; /* LOGO和菜单之间的间距 */
+            gap: 0;
             padding: 0 20px;
         }
         .logo {
@@ -87,13 +84,12 @@
             list-style: none;
             gap: 30px;
             align-items: center;
-            justify-content: center; /* 菜单横向居中排列 */
+            margin: 0 auto;
             pointer-events: auto; /* 导航菜单优先恢复点击 */
-            width: 100%; /* 菜单占满宽度，保证横向排列空间 */
         }
         .nav-menu li {
             position: relative;
-            z-index: 10000; /* 导航项层级拉满 */
+            z-index: 10000;
         }
         .nav-menu li a {
             text-decoration: none;
@@ -104,8 +100,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            pointer-events: auto; /* 链接强制启用点击 */
-            z-index: 10001; /* 链接层级高于父元素 */
+            pointer-events: auto;
+            z-index: 10001;
         }
         .nav-menu li a::before {
             content: '';
@@ -116,7 +112,7 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(24, 144, 255, 0.1), transparent);
             transition: all 0.6s ease;
-            z-index: -1; /* 伪元素不遮挡点击 */
+            z-index: -1;
         }
         .nav-menu li a:hover::before {
             left: 100%;
@@ -132,37 +128,48 @@
             font-weight: 500;
         }
 
-        /* 页面内容样式 - 核心美化排版 */
+        /* 页面内容样式 - 优化排版和动画 */
         .container {
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: containerFadeIn 1s ease 0.3s forwards;
+        }
+        @keyframes containerFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .page-title {
             font-size: 32px;
-            color: #1890ff; /* 标题统一为主题色 */
+            color: #1890ff;
             margin-bottom: 25px;
             padding-bottom: 12px;
             border-bottom: 2px solid #1890ff;
             font-weight: 600;
+            text-align: center; /* 与首页标题对齐 */
         }
         .about-content {
             font-size: 17px;
             line-height: 1.9;
             color: #555;
+            padding: 10px 0;
         }
         .about-content p {
             margin-bottom: 20px;
             text-indent: 2em;
             text-align: justify;
         }
-        /* 全局突出样式：所有需要强调的文字统一 */
+        /* 全局突出样式 - 与index统一 */
         .highlight, strong, b {
-            color: #1890ff !important; /* 强制统一为主题色 */
+            color: #1890ff !important;
             font-weight: 600 !important;
         }
 
-        /* 底部版权区（同步index） */
+        /* 底部版权区 - 与index完全同步 */
         .footer {
             background: #f5f8ff;
             padding: 20px 0;
@@ -177,24 +184,27 @@
             color: #333;
         }
 
-        /* ========== 移动端适配（768px以下） ========== */
+        /* 移动端适配（768px以下）- 与index完全同步 */
         @media (max-width: 768px) {
-            /* 导航栏适配 - 同步index移动端逻辑 */
+            /* 导航栏适配 */
             .nav-wrapper {
+                flex-direction: column;
                 padding: 10px;
                 gap: 10px;
             }
             .logo {
-                width: 200px; /* 缩小LOGO适配手机 */
+                width: 200px;
                 height: 80px;
                 margin-bottom: 5px;
             }
             .nav-menu {
-                gap: 10px; /* 缩小菜单间距 */
-                flex-wrap: wrap; /* 菜单项过多时自动换行 */
+                gap: 10px;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
             }
             .nav-menu li a {
-                font-size: 14px; /* 缩小字体 */
+                font-size: 14px;
                 padding: 6px 10px;
             }
 
@@ -210,23 +220,27 @@
             }
             .about-content {
                 font-size: 15px;
+                line-height: 1.7;
+            }
+            .container {
+                margin: 20px auto;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏（完全同步index结构，保证LOGO下、菜单横向排列） -->
+    <!-- 导航栏 - 与index结构完全一致，添加ID便于脚本控制 -->
     <nav class="navbar" id="navbar">
         <div class="nav-wrapper">
             <div class="logo">
-                <img src="img/logo.png" alt="LOGO" loading="lazy">
+                <img src="img/logo.png" alt="靖江市金菊机械配件有限公司LOGO" loading="lazy">
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="about.html" class="active">关于我们</a></li> <!-- 当前页高亮 -->
-                <li><a href="products.html">产品中心</a></li>
-                <li><a href="news.html">新闻动态</a></li>
-                <li><a href="contact.html">联系我们</a></li>
+                <li><a href="index.html" id="indexLink">首页</a></li>
+                <li><a href="about.html" class="active">关于我们</a></li>
+                <li><a href="products.html" id="productLink">产品中心</a></li>
+                <li><a href="news.html" id="newsLink">新闻动态</a></li>
+                <li><a href="contact.html" id="contactLink">联系我们</a></li>
             </ul>
         </div>
     </nav>
@@ -242,14 +256,33 @@
         </div>
     </div>
 
-    <!-- 底部版权区（同步index） -->
+    <!-- 底部版权区 -->
     <div class="footer">
         <p>© 2025 靖江市金菊机械配件有限公司 版权所有</p>
     </div>
 
-    <!-- 导航栏滚动效果脚本（同步index） -->
+    <!-- 脚本 - 与index逻辑完全同步，修复导航点击问题 -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // 导航链接点击事件（防止穿透/冲突）
+            const navLinks = {
+                indexLink: 'index.html',
+                productLink: 'products.html',
+                newsLink: 'news.html',
+                contactLink: 'contact.html'
+            };
+
+            Object.keys(navLinks).forEach(id => {
+                const link = document.getElementById(id);
+                if (link) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.location.href = navLinks[id];
+                    });
+                }
+            });
+
             // 导航栏滚动效果
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
@@ -258,25 +291,6 @@
                 } else {
                     navbar.classList.remove('scrolled');
                 }
-            });
-
-            // 补充：同步index的导航链接点击逻辑，避免跳转异常
-            const navLinks = {
-                aboutLink: 'about.html',
-                productLink: 'products.html',
-                newsLink: 'news.html',
-                contactLink: 'contact.html'
-            };
-            // 为导航菜单所有链接绑定点击事件
-            document.querySelectorAll('.nav-menu li a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href && href !== '#') {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        window.location.href = href;
-                    }
-                });
             });
         });
     </script>
