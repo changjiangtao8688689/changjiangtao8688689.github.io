@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新闻动态</title>
+    <title>新闻动态 - 靖江市金菊机械配件有限公司</title>
     <style>
         * {
             margin: 0;
@@ -11,24 +11,26 @@
             box-sizing: border-box;
             font-family: "Microsoft Yahei", sans-serif;
         }
+        /* 全局过渡 - 核心修复：禁用点击穿透 */
         html {
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
+            -webkit-overflow-scrolling: touch; /* 移动端顺滑滚动 */
         }
         body {
             opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
+            visibility: hidden; /* 关键：彻底隐藏直到加载完成，避免点击穿透 */
+            pointer-events: none; /* 关键：加载期间禁用所有点击 */
             animation: pageFadeIn 1s ease forwards;
-            -webkit-animation: pageFadeIn 1s ease forwards;
+            -webkit-animation: pageFadeIn 1s ease forwards; /* 兼容webkit内核 */
         }
         @keyframes pageFadeIn {
             to {
                 opacity: 1;
                 visibility: visible;
-                pointer-events: auto;
+                pointer-events: auto; /* 动画完成后恢复点击 */
             }
         }
+        /* 兼容webkit内核 */
         @-webkit-keyframes pageFadeIn {
             to {
                 opacity: 1;
@@ -36,7 +38,8 @@
                 pointer-events: auto;
             }
         }
-        /* 导航栏：LOGO单独一行，导航单独一行，完全匹配index */
+
+        /* 导航样式 - 完全同步index：LOGO在上，菜单在下横向排列 */
         .navbar {
             background: #ffffff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -44,9 +47,9 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 9999;
+            z-index: 9999; /* 提升层级，避免被其他元素遮挡 */
             transition: all 0.3s ease;
-            width: 100%;
+            width: 100%; /* 确保导航栏占满宽度 */
         }
         .navbar.scrolled {
             padding: 5px 0;
@@ -57,19 +60,19 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            flex-direction: column; /* LOGO和导航垂直排列 */
+            flex-direction: column; /* 核心：LOGO和菜单垂直排列 */
+            justify-content: center;
             align-items: center;
-            gap: 10px;
-            padding: 0 10px;
+            gap: 10px; /* LOGO和菜单间距 */
+            padding: 0 20px;
         }
         .logo {
             width: 360px;
             height: 120px;
-            max-width: 280px;
-            max-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.3s ease;
         }
         .logo img {
             width: 100%;
@@ -79,35 +82,54 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 15px;
+            gap: 30px;
             align-items: center;
-            justify-content: center;
-            width: 100%;
-            flex-wrap: wrap; /* 导航项自动换行，不显示不全 */
-            padding: 5px 0;
+            justify-content: center; /* 菜单横向居中 */
+            pointer-events: auto; /* 导航菜单优先恢复点击 */
+            width: 100%; /* 保证横向排列空间 */
         }
         .nav-menu li {
             position: relative;
-            z-index: 10000;
+            z-index: 10000; /* 导航项层级拉满 */
         }
         .nav-menu li a {
             text-decoration: none;
             color: #333;
-            font-size: 15px;
-            padding: 8px 12px;
+            font-size: 16px;
+            padding: 8px 16px;
             border-radius: 4px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            pointer-events: auto; /* 链接强制启用点击 */
+            z-index: 10001; /* 链接层级高于父元素 */
+        }
+        .nav-menu li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(24, 144, 255, 0.1), transparent);
+            transition: all 0.6s ease;
+            z-index: -1; /* 伪元素不遮挡点击 */
+        }
+        .nav-menu li a:hover::before {
+            left: 100%;
         }
         .nav-menu li a:hover {
             color: #1890ff;
             background: rgba(24, 144, 255, 0.1);
+            transform: translateY(-2px);
         }
         .nav-menu li a.active {
             color: #1890ff;
             background: rgba(24, 144, 255, 0.1);
             font-weight: 500;
         }
-        /* 页面内容 */
+
+        /* 新闻页面内容样式 */
         .container {
             max-width: 1200px;
             margin: 40px auto;
@@ -115,41 +137,55 @@
         }
         .page-title {
             font-size: 32px;
-            color: #1890ff;
+            color: #1890ff; /* 标题统一为主题色 */
             margin-bottom: 25px;
             padding-bottom: 12px;
             border-bottom: 2px solid #1890ff;
             font-weight: 600;
         }
         .news-list {
-            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
         }
         .news-item {
-            border-bottom: 1px dashed #eee;
-            padding: 20px 0;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            transition: all 0.3s ease;
         }
-        .news-title {
-            font-size: 22px;
-            color: #1890ff;
-            margin-bottom: 10px;
-            font-weight: 600;
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
         .news-date {
-            font-size: 14px;
             color: #999;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .news-title {
+            font-size: 18px;
+            color: #333;
             margin-bottom: 12px;
-            display: block;
+            transition: color 0.3s ease;
+        }
+        .news-item:hover .news-title {
+            color: #1890ff;
         }
         .news-desc {
-            font-size: 17px;
+            font-size: 16px;
+            line-height: 1.7;
             color: #555;
-            line-height: 1.8;
-            text-align: justify;
         }
-        strong, b {
-            color: #1890ff !important;
+
+        /* 全局突出样式 */
+        .highlight, strong, b {
+            color: #1890ff !important; /* 强制统一为主题色 */
             font-weight: 600 !important;
         }
+
+        /* 底部版权区（同步index） */
         .footer {
             background: #f5f8ff;
             padding: 20px 0;
@@ -157,30 +193,55 @@
             color: #666;
             font-size: 14px;
             border-top: 1px solid #e8f4ff;
+            transition: all 0.3s ease;
         }
-        /* 移动端仅微调间距，不改变布局 */
+        .footer:hover {
+            background: #e8f4ff;
+            color: #333;
+        }
+
+        /* ========== 移动端适配（768px以下） ========== */
         @media (max-width: 768px) {
+            /* 导航栏适配 - 同步index */
+            .nav-wrapper {
+                padding: 10px;
+                gap: 10px;
+            }
             .logo {
-                max-width: 220px;
-                max-height: 80px;
+                width: 200px; /* 缩小LOGO适配手机 */
+                height: 80px;
+                margin-bottom: 5px;
             }
             .nav-menu {
-                gap: 8px;
+                gap: 10px; /* 缩小菜单间距 */
+                flex-wrap: wrap; /* 菜单项过多时自动换行 */
             }
             .nav-menu li a {
-                font-size: 14px;
+                font-size: 14px; /* 缩小字体 */
                 padding: 6px 10px;
             }
+
+            /* 全局图片适配 */
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            /* 新闻内容适配 */
             .page-title {
                 font-size: 26px;
             }
-            .news-title {
-                font-size: 18px;
+            .news-list {
+                grid-template-columns: 1fr; /* 移动端单列 */
+            }
+            .news-item {
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 导航栏（同步index结构：LOGO下、菜单横向排列） -->
     <nav class="navbar" id="navbar">
         <div class="nav-wrapper">
             <div class="logo">
@@ -190,39 +251,43 @@
                 <li><a href="index.html">首页</a></li>
                 <li><a href="about.html">关于我们</a></li>
                 <li><a href="products.html">产品中心</a></li>
-                <li><a href="news.html" class="active">新闻动态</a></li>
+                <li><a href="news.html" class="active">新闻动态</a></li> <!-- 当前页高亮 -->
                 <li><a href="contact.html">联系我们</a></li>
             </ul>
         </div>
     </nav>
 
+    <!-- 新闻页面内容 -->
     <div class="container">
         <h1 class="page-title">新闻动态</h1>
         <div class="news-list">
             <div class="news-item">
-                <h3 class="news-title">公司新增千平米新厂房</h3>
-                <span class="news-date">发布时间：2025-10-10</span>
-                <p class="news-desc">近日，靖江市金菊机械配件有限公司由于业务发展需要，新增建设上千平米新厂房，将为客户更好的服务。</p>
+                <div class="news-date">2025-01-10</div>
+                <h3 class="news-title">公司新增3台大型注塑机，产能提升50%</h3>
+                <p class="news-desc">为满足市场需求，公司于2025年初新增3台高精度大型注塑机，设备投产后将大幅提升塑胶制品的生产效率与品质，产能较此前提升50%。</p>
             </div>
             <div class="news-item">
-                <h3 class="news-title">公司新增多条自动化生产线</h3>
-                <span class="news-date">发布时间：2024-04-15</span>
-                <p class="news-desc">为满足市场需求，提升生产效率和产品精度，公司新增多条自动化生产设备，预计产能将提升30%，交付周期缩短15%。</p>
+                <div class="news-date">2024-12-05</div>
+                <h3 class="news-title">公司泵阀配件产品通过船舶重工行业认证</h3>
+                <p class="news-desc">我司研发生产的泵阀配件系列产品，近日顺利通过船舶重工行业权威认证，标志着产品品质达到行业高端标准，可广泛应用于船舶制造领域。</p>
             </div>
             <div class="news-item">
-                <h3 class="news-title">2024上海国际工程机械展参展回顾</h3>
-                <span class="news-date">发布时间：2024-03-20</span>
-                <p class="news-desc">公司参加了2024上海国际工程机械展览会，展出了多款核心产品，与国内外多家客户达成合作意向，收获颇丰。</p>
+                <div class="news-date">2024-10-20</div>
+                <h3 class="news-title">靖江市金菊机械配件有限公司参展上海橡塑展</h3>
+                <p class="news-desc">公司受邀参加2024上海国际橡塑展，展出多款定制化模具及塑胶制品，与多家行业客户达成合作意向，进一步拓展了市场布局。</p>
             </div>
         </div>
     </div>
 
+    <!-- 底部版权区（同步index） -->
     <div class="footer">
         <p>© 2025 靖江市金菊机械配件有限公司 版权所有</p>
     </div>
 
+    <!-- 导航栏滚动效果脚本（同步index） -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // 导航栏滚动效果
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
@@ -230,6 +295,18 @@
                 } else {
                     navbar.classList.remove('scrolled');
                 }
+            });
+
+            // 同步index的导航链接点击逻辑
+            document.querySelectorAll('.nav-menu li a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href !== '#') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.location.href = href;
+                    }
+                });
             });
         });
     </script>
