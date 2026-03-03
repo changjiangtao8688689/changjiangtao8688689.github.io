@@ -50,4 +50,36 @@ nav ul {
     display: flex;
     align-items: center;
     margin-right: 20px; /* 菜单仅右侧留间距，不影响LOGO左侧 */
+
+/* 适配手机屏幕（宽度小于768px） */
+@media (max-width: 768px) {
+  /* 1. 导航栏适配 */
+  nav ul {
+    flex-direction: column; /* 导航栏垂直排列 */
+    padding: 10px;
+  }
+  nav ul li {
+    margin: 8px 0; /* 增加垂直间距 */
+  }
+
+  /* 2. 图片适配（防止图片超出屏幕） */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 3. 页面容器适配（让内容不贴边） */
+  .container {
+    padding: 0 15px;
+  }
+
+  /* 4. 标题文字适配（缩小字号） */
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+}
+
 }
