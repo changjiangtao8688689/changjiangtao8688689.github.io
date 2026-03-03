@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻动态 - 靖江市金菊机械配件有限公司</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        /* 统一导航样式 */
+        .navbar {
+            background: #ffffff;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .nav-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 0;
+            padding: 0 20px;
+        }
+        .logo {
+            width: 360px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+            margin: 0 auto;
+        }
+        .nav-menu li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .nav-menu li a:hover {
+            color: #1890ff;
+            background: rgba(24, 144, 255, 0.1);
+        }
+        .nav-menu li a.active {
+            color: #1890ff;
+            background: rgba(24, 144, 255, 0.1);
+            font-weight: 500;
+        }
+        /* 页面内容样式 - 统一排版+颜色 */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .page-title {
+            font-size: 32px;
+            color: #1890ff; /* 标题统一为主题色 */
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #1890ff;
+            font-weight: 600;
+        }
+        .news-list {
+            margin-top: 20px;
+        }
+        .news-item {
+            border-bottom: 1px dashed #eee;
+            padding: 20px 0;
+        }
+        .news-title {
+            font-size: 22px;
+            color: #1890ff; /* 新闻标题统一为主题色 */
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .news-date {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .news-desc {
+            font-size: 17px;
+            color: #555;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        /* 全局突出样式：所有粗体统一颜色 */
+        strong, b {
+            color: #1890ff !important;
+            font-weight: 600 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <div class="logo">
+                <img src="img/logo.png" alt="靖江市金菊机械配件有限公司LOGO">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="products.html">产品中心</a></li>
+                <li><a href="news.html" class="active">新闻动态</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 页面内容 -->
+    <div class="container">
+        <h1 class="page-title">新闻动态</h1>
+        <div class="news-list">
+            <div class="news-item">
+                <h3 class="news-title">公司新增千平米新厂房</h3>
+                <span class="news-date">发布时间：2025-10-10</span>
+                <p class="news-desc">近日，靖江市金菊机械配件有限公司由于业务发展需要，新增建设上千平米新厂房，将为客户更好的服务。</p>
+            </div>
+            <div class="news-item">
+                <h3 class="news-title">公司新增多条自动化生产线</h3>
+                <span class="news-date">发布时间：2024-04-15</span>
+                <p class="news-desc">为满足市场需求，提升生产效率和产品精度，公司新增多条自动化生产设备，预计产能将提升30%，交付周期缩短15%。</p>
+            </div>
+            <div class="news-item">
+                <h3 class="news-title">2024上海国际工程机械展参展回顾</h3>
+                <span class="news-date">发布时间：2024-03-20</span>
+                <p class="news-desc">公司参加了2024上海国际工程机械展览会，展出了多款核心产品，与国内外多家客户达成合作意向，收获颇丰。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
