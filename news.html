@@ -36,7 +36,7 @@
                 pointer-events: auto;
             }
         }
-        /* 导航栏核心样式 - 完全复刻index，移除移动端垂直排列 */
+        /* 导航栏：LOGO单独一行，导航单独一行，完全匹配index */
         .navbar {
             background: #ffffff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -57,25 +57,19 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: flex-start;
+            flex-direction: column; /* LOGO和导航垂直排列 */
             align-items: center;
-            gap: 0;
-            padding: 0 20px;
-            /* 关键：强制横向排列，不随屏幕变小改变 */
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
+            gap: 10px;
+            padding: 0 10px;
         }
         .logo {
             width: 360px;
             height: 120px;
+            max-width: 280px;
+            max-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
-            /* 移动端LOGO自适应 */
-            max-width: 200px;
-            max-height: 80px;
-            flex-shrink: 0;
         }
         .logo img {
             width: 100%;
@@ -87,63 +81,33 @@
             list-style: none;
             gap: 15px;
             align-items: center;
-            margin: 0 auto;
-            pointer-events: auto;
-            /* 关键：强制横向排列，超出可滚动 */
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
-            overflow-x: auto;
+            justify-content: center;
+            width: 100%;
+            flex-wrap: wrap; /* 导航项自动换行，不显示不全 */
             padding: 5px 0;
-            -webkit-overflow-scrolling: touch;
-        }
-        .nav-menu::-webkit-scrollbar {
-            display: none;
         }
         .nav-menu li {
             position: relative;
             z-index: 10000;
-            white-space: nowrap;
         }
         .nav-menu li a {
             text-decoration: none;
             color: #333;
-            font-size: 16px;
-            padding: 8px 16px;
+            font-size: 15px;
+            padding: 8px 12px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            pointer-events: auto;
-            z-index: 10001;
-            /* 移动端字体适配 */
-            font-size: 14px;
-            padding: 6px 10px;
-        }
-        .nav-menu li a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(24, 144, 255, 0.1), transparent);
-            transition: all 0.6s ease;
-            z-index: -1;
-        }
-        .nav-menu li a:hover::before {
-            left: 100%;
         }
         .nav-menu li a:hover {
             color: #1890ff;
             background: rgba(24, 144, 255, 0.1);
-            transform: translateY(-2px);
         }
         .nav-menu li a.active {
             color: #1890ff;
             background: rgba(24, 144, 255, 0.1);
             font-weight: 500;
         }
-        /* 页面内容样式 */
+        /* 页面内容 */
         .container {
             max-width: 1200px;
             margin: 40px auto;
@@ -193,36 +157,25 @@
             color: #666;
             font-size: 14px;
             border-top: 1px solid #e8f4ff;
-            transition: all 0.3s ease;
         }
-        .footer:hover {
-            background: #e8f4ff;
-            color: #333;
-        }
-        /* 移动端适配 - 仅微调，不改变横向排列 */
+        /* 移动端仅微调间距，不改变布局 */
         @media (max-width: 768px) {
-            .nav-wrapper {
-                padding: 10px;
-            }
             .logo {
-                max-width: 150px;
-                max-height: 60px;
+                max-width: 220px;
+                max-height: 80px;
             }
             .nav-menu {
-                gap: 10px;
+                gap: 8px;
             }
             .nav-menu li a {
-                font-size: 13px;
-                padding: 5px 8px;
+                font-size: 14px;
+                padding: 6px 10px;
             }
             .page-title {
                 font-size: 26px;
             }
             .news-title {
                 font-size: 18px;
-            }
-            .news-desc {
-                font-size: 15px;
             }
         }
     </style>
