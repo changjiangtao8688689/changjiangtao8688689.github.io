@@ -1,4 +1,4 @@
-﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -42,7 +42,7 @@
             }
         }
 
-        /* 导航样式 - 同步index的完整样式 + 移动端适配 */
+        /* 导航样式 - 完全同步news：LOGO在上，菜单在下横向排列 */
         .navbar {
             background: #ffffff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -63,9 +63,10 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: flex-start;
+            flex-direction: column; /* 核心：LOGO和菜单垂直排列 */
+            justify-content: center;
             align-items: center;
-            gap: 0;
+            gap: 10px; /* LOGO和菜单间距 */
             padding: 0 20px;
         }
         .logo {
@@ -86,8 +87,9 @@
             list-style: none;
             gap: 30px;
             align-items: center;
-            margin: 0 auto;
+            justify-content: center; /* 菜单横向居中 */
             pointer-events: auto; /* 导航菜单优先恢复点击 */
+            width: 100%; /* 保证横向排列空间 */
         }
         .nav-menu li {
             position: relative;
@@ -188,7 +190,7 @@
             font-weight: 600 !important;
         }
 
-        /* 底部版权区（同步index） */
+        /* 底部版权区（同步news） */
         .footer {
             background: #f5f8ff;
             padding: 20px 0;
@@ -205,9 +207,8 @@
 
         /* ========== 移动端适配（768px以下） ========== */
         @media (max-width: 768px) {
-            /* 导航栏适配 */
+            /* 导航栏适配 - 同步news */
             .nav-wrapper {
-                flex-direction: column; /* LOGO和菜单垂直排列 */
                 padding: 10px;
                 gap: 10px;
             }
@@ -218,8 +219,6 @@
             }
             .nav-menu {
                 gap: 10px; /* 缩小菜单间距 */
-                width: 100%;
-                justify-content: center; /* 菜单居中 */
                 flex-wrap: wrap; /* 菜单项过多时自动换行 */
             }
             .nav-menu li a {
@@ -253,7 +252,7 @@
     </style>
 </head>
 <body>
-    <!-- 导航栏（同步index结构，添加ID） -->
+    <!-- 导航栏（同步news结构：LOGO下、菜单横向排列） -->
     <nav class="navbar" id="navbar">
         <div class="nav-wrapper">
             <div class="logo">
@@ -287,12 +286,12 @@
         </div>
     </div>
 
-    <!-- 底部版权区（同步index） -->
+    <!-- 底部版权区（同步news） -->
     <div class="footer">
         <p>© 2025 靖江市金菊机械配件有限公司 版权所有</p>
     </div>
 
-    <!-- 导航栏滚动效果脚本（同步index） -->
+    <!-- 导航栏滚动效果脚本（同步news） -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 导航栏滚动效果
@@ -303,6 +302,18 @@
                 } else {
                     navbar.classList.remove('scrolled');
                 }
+            });
+
+            // 同步news的导航链接点击逻辑
+            document.querySelectorAll('.nav-menu li a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href !== '#') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.location.href = href;
+                    }
+                });
             });
         });
     </script>
