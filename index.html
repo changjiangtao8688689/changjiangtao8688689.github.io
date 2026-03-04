@@ -1,4 +1,4 @@
-﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -11,35 +11,25 @@
             box-sizing: border-box;
             font-family: "Microsoft Yahei", sans-serif;
         }
-        /* 全局过渡 - 核心修复：禁用点击穿透 */
+        /* 全局淡入动画（无点击干扰） */
         html {
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; /* 移动端顺滑滚动 */
+            -webkit-overflow-scrolling: touch;
         }
         body {
             opacity: 0;
-            visibility: hidden; /* 关键：彻底隐藏直到加载完成，避免点击穿透 */
-            pointer-events: none; /* 关键：加载期间禁用所有点击 */
+            visibility: hidden;
             animation: pageFadeIn 1s ease forwards;
-            -webkit-animation: pageFadeIn 1s ease forwards; /* 兼容webkit内核 */
+            -webkit-animation: pageFadeIn 1s ease forwards;
         }
         @keyframes pageFadeIn {
-            to {
-                opacity: 1;
-                visibility: visible;
-                pointer-events: auto; /* 动画完成后恢复点击 */
-            }
+            to { opacity: 1; visibility: visible; }
         }
-        /* 兼容webkit内核 */
         @-webkit-keyframes pageFadeIn {
-            to {
-                opacity: 1;
-                visibility: visible;
-                pointer-events: auto;
-            }
+            to { opacity: 1; visibility: visible; }
         }
 
-        /* 导航样式 - 强化点击优先级 + 移动端适配 */
+        /* ===== 导航栏（纯样式，无JS点击干预）===== */
         .navbar {
             background: #ffffff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -47,9 +37,9 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 9999; /* 提升层级，避免被其他元素遮挡 */
+            z-index: 9999;
             transition: all 0.3s ease;
-            width: 100%; /* 确保导航栏占满宽度 */
+            width: 100%;
         }
         .navbar.scrolled {
             padding: 5px 0;
@@ -60,9 +50,10 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: flex-start;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 0;
+            gap: 10px;
             padding: 0 20px;
         }
         .logo {
@@ -71,7 +62,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
         }
         .logo img {
             width: 100%;
@@ -83,12 +73,9 @@
             list-style: none;
             gap: 30px;
             align-items: center;
-            margin: 0 auto;
-            pointer-events: auto; /* 导航菜单优先恢复点击 */
-        }
-        .nav-menu li {
-            position: relative;
-            z-index: 10000; /* 导航项层级拉满 */
+            justify-content: center;
+            width: 100%;
+            flex-wrap: wrap;
         }
         .nav-menu li a {
             text-decoration: none;
@@ -97,24 +84,6 @@
             padding: 8px 16px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            pointer-events: auto; /* 链接强制启用点击 */
-            z-index: 10001; /* 链接层级高于父元素 */
-        }
-        .nav-menu li a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(24, 144, 255, 0.1), transparent);
-            transition: all 0.6s ease;
-            z-index: -1; /* 伪元素不遮挡点击 */
-        }
-        .nav-menu li a:hover::before {
-            left: 100%;
         }
         .nav-menu li a:hover {
             color: #1890ff;
@@ -127,7 +96,7 @@
             font-weight: 500;
         }
 
-        /* banner区域 - 调整布局 + 移动端适配 */
+        /* banner区域 */
         .banner-wrap {
             width: 100%;
             margin-bottom: 40px;
@@ -136,10 +105,6 @@
             width: 100%;
             height: 400px;
             background: #f5f8ff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
             overflow: hidden;
         }
         .banner-img {
@@ -148,33 +113,19 @@
             object-fit: cover;
             transform: scale(1.05);
             transition: transform 8s ease;
-            loading: lazy; /* 懒加载 */
         }
         .banner:hover .banner-img {
             transform: scale(1);
         }
-        /* 新增banner文字区域，放在图片下方 */
         .banner-text {
             text-align: center;
-            color: #2c3e50;
             padding: 30px 20px;
+            animation: bannerTextIn 1s ease 0.5s forwards;
             opacity: 0;
             transform: translateY(20px);
-            animation: bannerTextIn 1s ease 0.5s forwards;
-            -webkit-animation: bannerTextIn 1s ease 0.5s forwards; /* 兼容webkit */
         }
         @keyframes bannerTextIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* 兼容webkit */
-        @-webkit-keyframes bannerTextIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
         .banner-title {
             font-size: 36px;
@@ -190,7 +141,7 @@
             margin: 0 auto;
         }
 
-        /* 核心业务区 + 移动端适配 */
+        /* 核心业务区 */
         .container {
             max-width: 1200px;
             margin: 0 auto 60px;
@@ -246,22 +197,11 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .business-item:hover .business-img {
-            background: #1890ff;
-            transform: rotate(5deg);
         }
         .business-img img {
             width: 60px;
             height: 60px;
             object-fit: contain;
-            transition: all 0.3s ease;
-            loading: lazy; /* 懒加载 */
-        }
-        .business-item:hover .business-img img {
-            filter: brightness(1.2);
-            transform: scale(1.1);
         }
         .business-name {
             font-size: 20px;
@@ -275,12 +215,6 @@
             line-height: 1.7;
         }
 
-        /* 全局突出样式 */
-        strong, b {
-            color: #1890ff !important;
-            font-weight: 600 !important;
-        }
-
         /* 底部版权区 */
         .footer {
             background: #f5f8ff;
@@ -289,66 +223,23 @@
             color: #666;
             font-size: 14px;
             border-top: 1px solid #e8f4ff;
-            transition: all 0.3s ease;
         }
         .footer:hover {
             background: #e8f4ff;
             color: #333;
         }
 
-        /* ========== 移动端适配（768px以下） ========== */
+        /* 移动端适配 */
         @media (max-width: 768px) {
-            /* 导航栏适配 */
-            .nav-wrapper {
-                flex-direction: column; /* LOGO和菜单垂直排列 */
-                padding: 10px;
-                gap: 10px;
-            }
-            .logo {
-                width: 200px; /* 缩小LOGO适配手机 */
-                height: 80px;
-                margin-bottom: 5px;
-            }
-            .nav-menu {
-                gap: 10px; /* 缩小菜单间距 */
-                width: 100%;
-                justify-content: center; /* 菜单居中 */
-                flex-wrap: wrap; /* 菜单项过多时自动换行 */
-            }
-            .nav-menu li a {
-                font-size: 14px; /* 缩小字体 */
-                padding: 6px 10px;
-            }
-
-            /* Banner适配 */
-            .banner {
-                height: 200px; /* 降低Banner高度 */
-            }
-            .banner-title {
-                font-size: 24px; /* 缩小标题 */
-            }
-            .banner-desc {
-                font-size: 14px;
-                line-height: 1.6;
-            }
-
-            /* 核心业务区适配 */
-            .business-list {
-                grid-template-columns: 1fr; /* 移动端单列显示 */
-                gap: 20px;
-            }
-            .business-item {
-                padding: 20px 15px;
-            }
-            .section-title {
-                font-size: 26px; /* 缩小板块标题 */
-            }
-
-            /* 全局图片适配 */
-            img {
-                max-width: 100%;
-                height: auto;
-            }
+            .nav-wrapper { padding: 10px; gap: 10px; }
+            .logo { width: 200px; height: 80px; }
+            .nav-menu { gap: 10px; }
+            .nav-menu li a { font-size: 14px; padding: 6px 10px; }
+            .banner { height: 200px; }
+            .banner-title { font-size: 24px; }
+            .banner-desc { font-size: 14px; }
+            .business-list { grid-template-columns: 1fr; }
+            .section-title { font-size: 26px; }
         }
     </style>
 </head>
@@ -360,22 +251,21 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" class="active">首页</a></li>
-                <li><a href="about.html" id="aboutLink">关于我们</a></li>
-                <li><a href="products.html" id="productLink">产品中心</a></li>
-                <li><a href="news.html" id="newsLink">新闻动态</a></li>
-                <li><a href="contact.html" id="contactLink">联系我们</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="products.html">产品中心</a></li>
+                <li><a href="news.html">新闻动态</a></li>
+                <li><a href="contact.html">联系我们</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- 重构banner区域结构，分离图片和文字 -->
     <div class="banner-wrap">
         <div class="banner">
-            <img src="img/banner1.png" class="banner-img" alt="靖江市金菊机械配件有限公司宣传图" loading="lazy">
+            <img src="img/banner1.png" class="banner-img" alt="公司宣传图" loading="lazy">
         </div>
         <div class="banner-text">
             <h2 class="banner-title">靖江市金菊机械配件有限公司</h2>
-            <p class="banner-desc">专注于<span class="highlight">模具设计制造、泵阀配件研发生产、塑胶制品定制加工</span><br>全流程一体化服务，为您提供高品质的产品与解决方案</p>
+            <p class="banner-desc">专注于模具设计制造、泵阀配件研发生产、塑胶制品定制加工<br>全流程一体化服务</p>
         </div>
     </div>
 
@@ -383,25 +273,19 @@
         <h2 class="section-title" id="sectionTitle">核心业务</h2>
         <div class="business-list">
             <div class="business-item" data-delay="0.1">
-                <div class="business-img">
-                    <img src="img/mj.png" alt="模具设计制造" loading="lazy">
-                </div>
+                <div class="business-img"><img src="img/mj.png" alt="模具设计制造"></div>
                 <h3 class="business-name">模具设计制造</h3>
-                <p class="business-desc">专业的模具研发设计团队，可根据客户需求定制各类非标模具，精度高、稳定性强，满足多领域生产需求。</p>
+                <p class="business-desc">专业的模具研发设计团队，可根据客户需求定制各类非标模具。</p>
             </div>
             <div class="business-item" data-delay="0.2">
-                <div class="business-img">
-                    <img src="img/bf.png" alt="泵阀配件研发生产" loading="lazy">
-                </div>
+                <div class="business-img"><img src="img/bf.png" alt="泵阀配件研发生产"></div>
                 <h3 class="business-name">泵阀配件研发生产</h3>
-                <p class="business-desc">依托先进生产设备，生产各类泵阀配件，耐腐蚀、耐高温，广泛应用于工程机械、船舶重工等领域。</p>
+                <p class="business-desc">生产各类泵阀配件，耐腐蚀、耐高温，广泛应用于工程机械等领域。</p>
             </div>
             <div class="business-item" data-delay="0.3">
-                <div class="business-img">
-                    <img src="img/sj.png" alt="塑胶制品定制加工" loading="lazy">
-                </div>
+                <div class="business-img"><img src="img/sj.png" alt="塑胶制品定制加工"></div>
                 <h3 class="business-name">塑胶制品定制加工</h3>
-                <p class="business-desc">拥有十多台大型注塑机、硫化机配套，支持塑胶制品批量定制加工，品质管控严格，交付周期可控。</p>
+                <p class="business-desc">拥有大型注塑机、硫化机，支持批量定制加工，品质管控严格。</p>
             </div>
         </div>
     </div>
@@ -411,30 +295,8 @@
     </div>
 
     <script>
-        // 核心修复1：提前初始化导航链接，禁用默认事件冲突
+        // 仅保留滚动时改变导航栏样式和滚动显示动画，无任何点击干预
         document.addEventListener('DOMContentLoaded', function() {
-            // 给所有导航链接绑定独立点击事件，避免事件穿透
-            const navLinks = {
-                aboutLink: 'about.html',
-                productLink: 'products.html',
-                newsLink: 'news.html',
-                contactLink: 'contact.html'
-            };
-
-            Object.keys(navLinks).forEach(id => {
-                const link = document.getElementById(id);
-                if (link) {
-                    link.addEventListener('click', function(e) {
-                        // 阻止所有可能的事件冒泡/默认行为
-                        e.preventDefault();
-                        e.stopPropagation();
-                        // 强制跳转（绝对路径避免解析错误）
-                        window.location.href = navLinks[id];
-                    });
-                }
-            });
-
-            // 导航栏滚动效果
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
@@ -444,12 +306,7 @@
                 }
             });
 
-            // 滚动显示动画
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
+            // 滚动显示动画（不影响导航）
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -464,13 +321,9 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
-
-            // 监听元素
+            }, { threshold: 0.1 });
             observer.observe(document.getElementById('sectionTitle'));
-            document.querySelectorAll('.business-item').forEach(item => {
-                observer.observe(item);
-            });
+            document.querySelectorAll('.business-item').forEach(item => observer.observe(item));
         });
     </script>
 </body>
