@@ -1,12 +1,9 @@
-﻿﻿﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <!-- 必须加！手机端适配的核心，没有它，style.css 的移动端样式不生效 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 确保引入了 style.css（路径要对） -->
-    <link rel="stylesheet" href="css/style.css">
-    <title>联系我们</title>
+    <title>产品中心 - 靖江市金菊机械配件有限公司</title>
     <style>
         * {
             margin: 0;
@@ -14,26 +11,26 @@
             box-sizing: border-box;
             font-family: "Microsoft Yahei", sans-serif;
         }
-        /* 全局过渡 - 核心修复：禁用点击穿透 */
+
+        /* 全局淡入动画 + 点击穿透修复 (同首页) */
         html {
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; /* 移动端顺滑滚动 */
+            -webkit-overflow-scrolling: touch;
         }
         body {
             opacity: 0;
-            visibility: hidden; /* 关键：彻底隐藏直到加载完成，避免点击穿透 */
-            pointer-events: none; /* 关键：加载期间禁用所有点击 */
+            visibility: hidden;
+            pointer-events: none;
             animation: pageFadeIn 1s ease forwards;
-            -webkit-animation: pageFadeIn 1s ease forwards; /* 兼容webkit内核 */
+            -webkit-animation: pageFadeIn 1s ease forwards;
         }
         @keyframes pageFadeIn {
             to {
                 opacity: 1;
                 visibility: visible;
-                pointer-events: auto; /* 动画完成后恢复点击 */
+                pointer-events: auto;
             }
         }
-        /* 兼容webkit内核 */
         @-webkit-keyframes pageFadeIn {
             to {
                 opacity: 1;
@@ -42,7 +39,7 @@
             }
         }
 
-        /* 导航样式 - 完全同步news：LOGO在上，菜单在下横向排列 */
+        /* ----- 导航样式 (完全复制首页) ----- */
         .navbar {
             background: #ffffff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -50,9 +47,9 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 9999; /* 提升层级，避免被其他元素遮挡 */
+            z-index: 9999;
             transition: all 0.3s ease;
-            width: 100%; /* 确保导航栏占满宽度 */
+            width: 100%;
         }
         .navbar.scrolled {
             padding: 5px 0;
@@ -63,10 +60,9 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            flex-direction: column; /* 核心：LOGO和菜单垂直排列 */
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            gap: 10px; /* LOGO和菜单间距 */
+            gap: 0;
             padding: 0 20px;
         }
         .logo {
@@ -87,13 +83,12 @@
             list-style: none;
             gap: 30px;
             align-items: center;
-            justify-content: center; /* 菜单横向居中 */
-            pointer-events: auto; /* 导航菜单优先恢复点击 */
-            width: 100%; /* 保证横向排列空间 */
+            margin: 0 auto;
+            pointer-events: auto;
         }
         .nav-menu li {
             position: relative;
-            z-index: 10000; /* 导航项层级拉满 */
+            z-index: 10000;
         }
         .nav-menu li a {
             text-decoration: none;
@@ -104,8 +99,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            pointer-events: auto; /* 链接强制启用点击 */
-            z-index: 10001; /* 链接层级高于父元素 */
+            pointer-events: auto;
+            z-index: 10001;
         }
         .nav-menu li a::before {
             content: '';
@@ -116,7 +111,7 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(24, 144, 255, 0.1), transparent);
             transition: all 0.6s ease;
-            z-index: -1; /* 伪元素不遮挡点击 */
+            z-index: -1;
         }
         .nav-menu li a:hover::before {
             left: 100%;
@@ -132,7 +127,7 @@
             font-weight: 500;
         }
 
-        /* 页面内容样式 - 统一排版+颜色 */
+        /* 页面内容 (产品中心原有样式) */
         .container {
             max-width: 1200px;
             margin: 40px auto;
@@ -140,57 +135,55 @@
         }
         .page-title {
             font-size: 32px;
-            color: #1890ff; /* 标题统一为主题色 */
+            color: #1890ff;
             margin-bottom: 25px;
             padding-bottom: 12px;
             border-bottom: 2px solid #1890ff;
             font-weight: 600;
         }
-        .contact-info {
-            display: flex;
-            gap: 40px;
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
             margin-top: 20px;
-            flex-wrap: wrap;
         }
-        .contact-details {
-            flex: 1;
-            min-width: 300px;
-            line-height: 2.2;
-            font-size: 17px;
-            color: #555;
-        }
-        .contact-details p {
-            margin-bottom: 10px;
-        }
-        .contact-details strong {
-            color: #1890ff !important; /* 联系方式标签统一为主题色 */
-            font-weight: 600 !important;
-            min-width: 80px;
-            display: inline-block;
-        }
-        /* 右侧图片容器样式 - 关键修改：让图片完整显示 */
-        .contact-img {
-            flex: 1;
-            min-width: 300px;
-            height: auto; /* 高度自适应，不固定死 */
-            max-height: 500px; /* 限制最大高度，避免太大 */
-            background: #f5f5f5;
-            border-radius: 8px;
-            overflow: hidden;
+        .product-item {
             border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            transition: box-shadow 0.3s ease;
         }
-        .contact-img img {
-            width: 100%; /* 宽度100%适配容器 */
-            height: auto; /* 高度自动，保持图片比例 */
-            display: block;
+        .product-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        /* 全局突出样式：所有粗体统一颜色 */
+        .product-img {
+            width: 100%;
+            height: 200px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        .product-name {
+            font-size: 18px;
+            color: #1890ff;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .product-desc {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
         strong, b {
             color: #1890ff !important;
             font-weight: 600 !important;
         }
 
-        /* 底部版权区（同步news） */
+        /* 底部版权区 */
         .footer {
             background: #f5f8ff;
             padding: 20px 0;
@@ -205,54 +198,50 @@
             color: #333;
         }
 
-        /* ========== 移动端适配（768px以下） ========== */
+        /* ========== 移动端适配 (完全同步首页) ========== */
         @media (max-width: 768px) {
-            /* 导航栏适配 - 同步news */
             .nav-wrapper {
+                flex-direction: column;
                 padding: 10px;
                 gap: 10px;
             }
             .logo {
-                width: 200px; /* 缩小LOGO适配手机 */
+                width: 200px;
                 height: 80px;
                 margin-bottom: 5px;
             }
             .nav-menu {
-                gap: 10px; /* 缩小菜单间距 */
-                flex-wrap: wrap; /* 菜单项过多时自动换行 */
+                gap: 10px;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
             }
             .nav-menu li a {
-                font-size: 14px; /* 缩小字体 */
+                font-size: 14px;
                 padding: 6px 10px;
             }
-
-            /* 全局图片适配 */
             img {
                 max-width: 100%;
                 height: auto;
             }
-
-            /* 页面内容适配 */
+            /* 产品列表移动端适配 */
             .page-title {
                 font-size: 26px;
             }
-            .contact-info {
-                flex-direction: column; /* 移动端联系方式和图片垂直排列 */
-                gap: 20px;
+            .product-list {
+                grid-template-columns: 1fr;
             }
-            .contact-details {
-                min-width: 100%;
-                font-size: 15px;
+            .product-img {
+                height: 150px;
             }
-            .contact-img {
-                min-width: 100%;
-                max-height: 300px; /* 缩小图片容器 */
+            .product-name {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏（同步news结构：LOGO下、菜单横向排列） -->
+    <!-- 导航栏 (同首页) -->
     <nav class="navbar" id="navbar">
         <div class="nav-wrapper">
             <div class="logo">
@@ -261,50 +250,47 @@
             <ul class="nav-menu">
                 <li><a href="index.html">首页</a></li>
                 <li><a href="about.html">关于我们</a></li>
-                <li><a href="products.html">产品中心</a></li>
+                <li><a href="products.html" class="active">产品中心</a></li>
                 <li><a href="news.html">新闻动态</a></li>
-                <li><a href="contact.html" class="active">联系我们</a></li> <!-- 当前页高亮 -->
+                <li><a href="contact.html">联系我们</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- 页面内容 -->
+    <!-- 产品中心内容 -->
     <div class="container">
-        <h1 class="page-title">联系我们</h1>
-        <div class="contact-info">
-            <div class="contact-details">
-                <p><strong>公司名称：</strong>靖江市金菊机械配件有限公司</p>
-                <p><strong>联系地址：</strong>江苏省靖江市生祠镇红英村沈家埭59号</p>
-                <p><strong>手机号码：</strong>18652386681</p>
-                <p><strong>电子邮箱：</strong>41581700@qq.com</p>
-                <p><strong>营业时间：</strong>周一至周五 8:00-18:00</p>
+        <h1 class="page-title">产品中心</h1>
+        <div class="product-list">
+            <div class="product-item">
+                <div class="product-img">产品图片1</div>
+                <h3 class="product-name">机械配件系列1</h3>
+                <p class="product-desc">本产品采用优质原材料制作，精度高、耐磨性强，适用于各类工程机械设备。</p>
             </div>
-            <!-- 右侧嵌入图片 -->
-            <div class="contact-img">
-                <img src="img/map.jpg" alt="靖江市金菊机械配件有限公司地图">
+            <div class="product-item">
+                <div class="product-img">产品图片2</div>
+                <h3 class="product-name">机械配件系列2</h3>
+                <p class="product-desc">定制化生产，满足不同客户的非标需求，使用寿命长，性价比高。</p>
+            </div>
+            <div class="product-item">
+                <div class="product-img">产品图片3</div>
+                <h3 class="product-name">机械配件系列3</h3>
+                <p class="product-desc">符合行业标准，通过严格质量检测，广泛应用于汽车制造领域。</p>
+            </div>
+            <div class="product-item">
+                <div class="product-img">产品图片4</div>
+                <h3 class="product-name">机械配件系列4</h3>
+                <p class="product-desc">耐腐蚀、耐高温，适用于船舶重工等恶劣工况环境。</p>
             </div>
         </div>
     </div>
 
-    <!-- 底部版权区（同步news） -->
     <div class="footer">
         <p>© 2025 靖江市金菊机械配件有限公司 版权所有</p>
     </div>
 
-    <!-- 导航栏滚动效果脚本（同步news） -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 导航栏滚动效果
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            // 同步news的导航链接点击逻辑
+            // 导航点击处理 (保证跳转，防止穿透)
             document.querySelectorAll('.nav-menu li a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
@@ -314,6 +300,16 @@
                         window.location.href = href;
                     }
                 });
+            });
+
+            // 滚动改变导航条样式
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
             });
         });
     </script>
