@@ -1,8 +1,10 @@
-﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <!-- 手机端适配核心（必须保留） -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>关于我们 - 靖江市金菊机械配件有限公司</title>
     <style>
         * {
@@ -11,16 +13,15 @@
             box-sizing: border-box;
             font-family: "Microsoft Yahei", sans-serif;
         }
-
-        /* 全局淡入动画 + 点击穿透修复 (与news完全一致) */
+        /* 全局过渡 - 修复点击穿透问题 */
         html {
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
+            -webkit-overflow-scrolling: touch; /* 移动端顺滑滚动 */
         }
         body {
             opacity: 0;
             visibility: hidden;
-            pointer-events: none;
+            pointer-events: none; /* 加载期间禁用所有点击 */
             animation: pageFadeIn 1s ease forwards;
             -webkit-animation: pageFadeIn 1s ease forwards;
         }
@@ -39,7 +40,7 @@
             }
         }
 
-        /* ===== 导航栏 (完全同步news：LOGO在上，菜单在下横向居中) ===== */
+        /* 导航样式 - 完全同步news：LOGO在上，菜单在下横向排列 */
         .navbar {
             background: #ffffff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -60,10 +61,10 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            flex-direction: column;   /* 核心：LOGO和菜单垂直排列 */
+            flex-direction: column; /* 核心：LOGO和菜单垂直排列 */
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 10px; /* LOGO和菜单间距 */
             padding: 0 20px;
         }
         .logo {
@@ -84,10 +85,9 @@
             list-style: none;
             gap: 30px;
             align-items: center;
-            justify-content: center;
-            pointer-events: auto;
-            width: 100%;
-            flex-wrap: wrap;      /* 允许换行，防止溢出 */
+            justify-content: center; /* 菜单横向居中 */
+            pointer-events: auto; /* 导航菜单优先恢复点击 */
+            width: 100%; /* 保证横向排列空间 */
         }
         .nav-menu li {
             position: relative;
@@ -130,7 +130,7 @@
             font-weight: 500;
         }
 
-        /* ===== 关于我们页面特有样式 ===== */
+        /* 页面内容样式 - 优化排版和动画 */
         .container {
             max-width: 1200px;
             margin: 40px auto;
@@ -152,7 +152,7 @@
             padding-bottom: 12px;
             border-bottom: 2px solid #1890ff;
             font-weight: 600;
-            text-align: center;
+            text-align: center; /* 与news标题对齐 */
         }
         .about-content {
             font-size: 17px;
@@ -165,12 +165,13 @@
             text-indent: 2em;
             text-align: justify;
         }
+        /* 全局突出样式 - 与news统一 */
         .highlight, strong, b {
             color: #1890ff !important;
             font-weight: 600 !important;
         }
 
-        /* ===== 底部版权区 ===== */
+        /* 底部版权区 - 与news完全同步 */
         .footer {
             background: #f5f8ff;
             padding: 20px 0;
@@ -185,8 +186,9 @@
             color: #333;
         }
 
-        /* ===== 移动端适配 (与news完全一致) ===== */
+        /* 移动端适配（768px以下）- 与news完全同步 */
         @media (max-width: 768px) {
+            /* 导航栏适配 */
             .nav-wrapper {
                 padding: 10px;
                 gap: 10px;
@@ -198,15 +200,20 @@
             }
             .nav-menu {
                 gap: 10px;
+                flex-wrap: wrap;
             }
             .nav-menu li a {
                 font-size: 14px;
                 padding: 6px 10px;
             }
+
+            /* 全局图片适配 */
             img {
                 max-width: 100%;
                 height: auto;
             }
+
+            /* 页面内容适配 */
             .page-title {
                 font-size: 26px;
             }
@@ -221,7 +228,7 @@
     </style>
 </head>
 <body>
-    <!-- 导航栏 (与news结构完全一致) -->
+    <!-- 导航栏 - 与news结构完全一致 -->
     <nav class="navbar" id="navbar">
         <div class="nav-wrapper">
             <div class="logo">
@@ -237,7 +244,7 @@
         </div>
     </nav>
 
-    <!-- 关于我们内容 -->
+    <!-- 页面内容 -->
     <div class="container">
         <h1 class="page-title">关于我们</h1>
         <div class="about-content">
@@ -253,10 +260,10 @@
         <p>© 2025 靖江市金菊机械配件有限公司 版权所有</p>
     </div>
 
-    <!-- 脚本 (滚动效果+导航点击处理) -->
+    <!-- 脚本 - 与news逻辑完全同步 -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 导航链接点击处理（防止穿透，确保跳转）
+            // 导航链接点击事件（防止穿透/冲突）
             document.querySelectorAll('.nav-menu li a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
