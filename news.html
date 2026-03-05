@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +38,16 @@
         .news-date { color: #999; font-size: 14px; margin-bottom: 10px; }
         .news-title { font-size: 18px; color: #333; margin-bottom: 12px; transition: color 0.3s ease; }
         .news-item:hover .news-title { color: #1890ff; }
-        .news-desc { font-size: 16px; line-height: 1.7; color: #555; }
+        .news-desc {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #555;
+            margin: 0;                /* 移除默认边距 */
+            text-indent: 2em;          /* 首行缩进2字符 */
+        }
+        .news-item .news-desc + .news-desc {
+            margin-top: 0.8em;         /* 同一新闻内多个段落之间的间距 */
+        }
 
         .footer { background: #f5f8ff; padding: 20px 0; text-align: center; color: #666; font-size: 14px; border-top: 1px solid #e8f4ff; }
         .footer:hover { background: #e8f4ff; color: #333; }
@@ -56,7 +65,7 @@
 <body>
     <nav class="navbar" id="navbar">
         <div class="nav-wrapper">
-            <div class="logo"><img src="img/logo.png" alt="LOGO" loading="lazy"></div>
+            <div class="logo"><img src="img/logo.jpg" alt="LOGO" loading="lazy"></div>
             <ul class="nav-menu">
                 <li><a href="index.html">首页</a></li>
                 <li><a href="about.html">关于我们</a></li>
@@ -70,9 +79,28 @@
     <div class="container">
         <h1 class="page-title">新闻动态</h1>
         <div class="news-list">
-            <div class="news-item"><div class="news-date">2025-01-10</div><h3 class="news-title">公司新增3台大型注塑机，产能提升50%</h3><p class="news-desc">为满足市场需求，公司于2025年初新增3台高精度大型注塑机，设备投产后将大幅提升塑胶制品的生产效率与品质，产能较此前提升50%。</p></div>
-            <div class="news-item"><div class="news-date">2024-12-05</div><h3 class="news-title">公司泵阀配件产品通过船舶重工行业认证</h3><p class="news-desc">我司研发生产的泵阀配件系列产品，近日顺利通过船舶重工行业权威认证，标志着产品品质达到行业高端标准，可广泛应用于船舶制造领域。</p></div>
-            <div class="news-item"><div class="news-date">2024-10-20</div><h3 class="news-title">靖江市金菊机械配件有限公司参展上海橡塑展</h3><p class="news-desc">公司受邀参加2024上海国际橡塑展，展出多款定制化模具及塑胶制品，与多家行业客户达成合作意向，进一步拓展了市场布局。</p></div>
+            <!-- 第一条新闻拆分为两个段落，并去除原文多余空格，实现分段和首行缩进 -->
+            <div class="news-item">
+                <div class="news-date">2025-10-1</div>
+                <h3 class="news-title">产能翻倍・智造领航，我厂全新生产基地正式投产！</h3>
+                <p class="news-desc">2025 年二季度，为匹配市场高速增长、满足客户更高标准的生产需求，我公司斥资扩建上千平方米现代化生产厂房，全面完成产能扩容与设备迭代，以全新姿态领跑精密注塑领域！</p>
+                <p class="news-desc">新厂房按照高端智造标准规划建设，空间更开阔、布局更科学、物流更高效，彻底告别产能瓶颈。全线配备行业最先进注塑设备，精度更高、稳定性更强、效率更快，从模具适配到成品产出全流程提质增效，产品一致性与良品率再攀新高。</p>
+            </div>
+            <div class="news-item">
+                <div class="news-date">2025-01-10</div>
+                <h3 class="news-title">公司新增3台大型注塑机，产能提升30%</h3>
+                <p class="news-desc">为满足市场需求，公司于2025年初新增3台高精度大型注塑机，设备投产后将大幅提升塑胶制品的生产效率与品质，产能较此前提升50%。</p>
+            </div>
+            <div class="news-item">
+                <div class="news-date">2024-12-05</div>
+                <h3 class="news-title">公司泵阀配件产品通过船舶重工行业认证</h3>
+                <p class="news-desc">我司研发生产的泵阀配件系列产品，近日顺利通过船舶重工行业权威认证，标志着产品品质达到行业高端标准，可广泛应用于船舶制造领域。</p>
+            </div>
+            <div class="news-item">
+                <div class="news-date">2024-10-20</div>
+                <h3 class="news-title">靖江市金菊机械配件有限公司参展上海橡塑展</h3>
+                <p class="news-desc">公司受邀参加2024上海国际橡塑展，展出多款定制化模具及塑胶制品，与多家行业客户达成合作意向，进一步拓展了市场布局。</p>
+            </div>
         </div>
     </div>
 
